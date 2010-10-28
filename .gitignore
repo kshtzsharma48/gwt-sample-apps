@@ -7,4 +7,4 @@ Sandbox/
 !/*/war/*.html
 !/*/war/*.jpg
 !/*/war/*.png
-!/*/war/WEB-INF/*
+!/*/war/WEB-INF/web.xml
