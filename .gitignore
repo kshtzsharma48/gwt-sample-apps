@@ -2,3 +2,9 @@
 sandbox/
 Sandbox/
 .DS_Store
+/*/war/*
+!/*/war/*.css
+!/*/war/*.html
+!/*/war/*.jpg
+!/*/war/*.png
+!/*/war/WEB-INF/*
