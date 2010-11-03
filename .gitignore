@@ -4,6 +4,7 @@ Sandbox/
 .DS_Store
 /*/.classpath
 /*/*.war
+/*/build.xml
 /*/war/com.lines_of_code*
 /*/war/WEB-INF/classes/*
 
