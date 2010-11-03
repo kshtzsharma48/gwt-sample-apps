@@ -2,9 +2,6 @@
 sandbox/
 Sandbox/
 .DS_Store
-/*/war/*
-!/*/war/*.css
-!/*/war/*.html
-!/*/war/*.jpg
-!/*/war/*.png
-!/*/*/*/web.xml
+/*/*.war
+/*/war/com.lines_of_code*
+/*/war/stockwatcher/*
