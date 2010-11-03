@@ -73,7 +73,7 @@
       source="1.5" target="1.5" nowarn="true"
       destdir="war/WEB-INF/classes"
       debug="true" debuglevel="lines,vars,source">
-      <classpath location="/Applications/Eclipse/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/junit.jar"/>
+      <classpath location="../libs/junit/junit.jar"/>
       <classpath refid="project.class.path"/>
     </javac>
   </target>
@@ -88,7 +88,7 @@
         <pathelement location="src" />
         <pathelement location="test" />
         <path refid="project.class.path" />
-        <pathelement location="/Applications/Eclipse/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/junit.jar" />
+        <pathelement location="../libs/junit/junit.jar" />
       </classpath>
       <batchtest todir="reports/htmlunit.dev" >
         <fileset dir="test" >
@@ -110,7 +110,7 @@
         <pathelement location="src" />
         <pathelement location="test" />
         <path refid="project.class.path" />
-        <pathelement location="/Applications/Eclipse/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/junit.jar" />
+        <pathelement location="../libs/junit/junit.jar" />
       </classpath>
       <batchtest todir="reports/htmlunit.prod" >
         <fileset dir="test" >
