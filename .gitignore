@@ -4,4 +4,7 @@ Sandbox/
 .DS_Store
 /*/*.war
 /*/war/com.lines_of_code*
+/*/war/WEB-INF/classes/*
+
+# project specific
 /*/war/stockwatcher/*
