@@ -2,6 +2,7 @@
 sandbox/
 Sandbox/
 .DS_Store
+/*/.classpath
 /*/*.war
 /*/war/com.lines_of_code*
 /*/war/WEB-INF/classes/*
