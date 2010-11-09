@@ -40,8 +40,8 @@ public class StockWatcher implements EntryPoint {
 		// Associate the Main panel with the HTML host page.
 		RootPanel.get("stockList").add(mainPanel);
 
-		// TODO Move cursor focus to the input box.
-
+		// Move cursor focus to the input box.
+		newSymbolTextBox.setFocus(true);
 	}
 
 }
