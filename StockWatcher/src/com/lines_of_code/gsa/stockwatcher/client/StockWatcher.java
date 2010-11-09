@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class StockWatcher implements EntryPoint {
 
-	private static final int REFRESH_INTERVAL = 5000;
+	private static final int REFRESH_INTERVAL = 5000; // ms
 	private VerticalPanel mainPanel = new VerticalPanel();
 	private FlexTable stocksFlexTable = new FlexTable();
 	private HorizontalPanel addPanel = new HorizontalPanel();
@@ -127,7 +127,8 @@ public class StockWatcher implements EntryPoint {
 
 		stocksFlexTable.setWidget(row, 3, removeStockButton);
 
-		// TODO Get the stock price.
+		// Get the stock price.
+		refreshWatchList();
 	}
 
 	private void refreshWatchList() {
