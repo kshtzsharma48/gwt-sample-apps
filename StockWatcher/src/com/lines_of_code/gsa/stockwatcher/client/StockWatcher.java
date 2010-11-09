@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -19,6 +20,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class StockWatcher implements EntryPoint {
 
+	private static final int REFRESH_INTERVAL = 5000;
 	private VerticalPanel mainPanel = new VerticalPanel();
 	private FlexTable stocksFlexTable = new FlexTable();
 	private HorizontalPanel addPanel = new HorizontalPanel();
@@ -52,6 +54,16 @@ public class StockWatcher implements EntryPoint {
 		// Move cursor focus to the input box.
 		newSymbolTextBox.setFocus(true);
 		
+		// Setup timer to refresh list automatically.
+		Timer refreshTimer = new Timer() {
+
+			@Override
+			public void run() {
+				refreshWatchList();
+			}
+		};
+		refreshTimer.scheduleRepeating(REFRESH_INTERVAL);
+
 		// Listen for mouse events on the Add button.
 		addStockButton.addClickHandler(new ClickHandler() {
 			@Override
@@ -118,4 +130,7 @@ public class StockWatcher implements EntryPoint {
 		// TODO Get the stock price.
 	}
 
+	private void refreshWatchList() {
+		// TODO generate and update all stocks
+	}
 }
