@@ -46,7 +46,7 @@
       <arg value="war"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
       <arg line="${gwt.args}"/>
-      <arg value="com.lines_of_code.stockwatcher.StockWatcher"/>
+      <arg value="com.lines_of_code.gsa.stockwatcher.StockWatcher"/>
     </java>
   </target>
 
@@ -63,7 +63,7 @@
       <arg value="war"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
       <arg line="${gwt.args}"/>
-      <arg value="com.lines_of_code.stockwatcher.StockWatcher"/>
+      <arg value="com.lines_of_code.gsa.stockwatcher.StockWatcher"/>
     </java>
   </target>
 
