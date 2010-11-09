@@ -1,6 +1,12 @@
 package com.lines_of_code.gsa.stockwatcher.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -42,6 +48,52 @@ public class StockWatcher implements EntryPoint {
 
 		// Move cursor focus to the input box.
 		newSymbolTextBox.setFocus(true);
+		
+		// Listen for mouse events on the Add button.
+		addStockButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				addStock();
+			}	
+		});
+
+		// Listen for keyboard events in the input box.
+		newSymbolTextBox.addKeyPressHandler(new KeyPressHandler() {
+
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				if (event.getCharCode() == KeyCodes.KEY_ENTER) {
+					addStock();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Add stock to FlexTable when the user clicks the addStockButton or presses
+	 * enter in the newSymbolTextBox.
+	 */
+	private void addStock() {
+		final String symbol = newSymbolTextBox.getText().toUpperCase().trim();
+		newSymbolTextBox.setFocus(true);
+
+		// Stock code must be between 1 and 10 chars that are numbers, letters
+		// or dots.
+		if (!symbol.matches("^[0-9A-Z\\.]{1,10}$")) {
+			Window.alert("'" + symbol + "' is not a valid symbol.");
+			newSymbolTextBox.selectAll();
+			return; // preventing further code execution
+		}
+
+		newSymbolTextBox.setText("");
+		
+		// TODO Don't add the Stock if it's already in the table.
+
+		// TODO Add the stock to the table.
+
+		// TODO Add a button to remove this stock from the table.
+
+		// TODO Get the stock price.
 	}
 
 }
