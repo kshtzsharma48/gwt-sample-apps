@@ -127,6 +127,7 @@ public class StockWatcher implements EntryPoint {
 		int row = stocksFlexTable.getRowCount();
 		stocks.add(symbol);
 		stocksFlexTable.setText(row, 0, symbol);
+		stocksFlexTable.setWidget(row, 2, new Label());
 		stocksFlexTable.getCellFormatter().addStyleName(row, 1,
 				"watchListNumericColumn");
 		stocksFlexTable.getCellFormatter().addStyleName(row, 2,
@@ -137,7 +138,6 @@ public class StockWatcher implements EntryPoint {
 		// Add a button to remove this stock from the table.
 		Button removeStockButton = new Button("x");
 		removeStockButton.addStyleDependentName("remove");
-		System.out.println(removeStockButton.getStylePrimaryName());
 		removeStockButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -212,8 +212,17 @@ public class StockWatcher implements EntryPoint {
 
 		// Populate the Price and Change fields with new data.
 		stocksFlexTable.setText(row, 1, priceText);
-		stocksFlexTable.setText(row, 2, changeText + " (" + changePercentText
-				+ "%)");
+		Label changeWidget = (Label) stocksFlexTable.getWidget(row, 2);
+		changeWidget.setText(changeText + " (" + changePercentText + "%)");
+
+		// Change the color of the text in the Change field based on its value.
+		String changeStyleName = "noChange";
+		if (price.getChangePercent() < -0.1f) {
+			changeStyleName = "negativeChange";
+		} else if (price.getChangePercent() > 0.1f) {
+			changeStyleName = "positiveChange";
+		}
+		changeWidget.setStyleName(changeStyleName);
 
 		// Display timestamp showing last refresh.
 		lastUpdatedLabel.setText("Last update : "

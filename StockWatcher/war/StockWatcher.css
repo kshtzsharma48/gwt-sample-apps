@@ -38,3 +38,16 @@ body {
 .gwt-Button-remove {
   width: 50px;
 }
+
+/* Dynamic color changes for the Change field */
+.noChange {
+  color: black;
+}
+
+.positiveChange {
+  color: green;
+}
+
+.negativeChange {
+  color: red;
+}
