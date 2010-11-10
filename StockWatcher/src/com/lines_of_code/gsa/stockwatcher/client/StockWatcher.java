@@ -1,6 +1,7 @@
 package com.lines_of_code.gsa.stockwatcher.client;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -8,6 +9,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.Timer;
@@ -188,9 +191,14 @@ public class StockWatcher implements EntryPoint {
 		String changePercentText = changeFormat
 				.format(price.getChangePercent());
 
-		// Populate the Price and Change fields with new data
+		// Populate the Price and Change fields with new data.
 		stocksFlexTable.setText(row, 1, priceText);
 		stocksFlexTable.setText(row, 2, changeText + " (" + changePercentText
 				+ "%)");
+
+		// Display timestamp showing last refresh.
+		lastUpdatedLabel.setText("Last update : "
+				+ DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM)
+						.format(new Date()));
 	}
 }
