@@ -28,3 +28,8 @@ body {
 .watchListRemoveColumn {
   text-align: center;
 }
+
+/* Add Stock panel */
+.addPanel {
+  margin: 10px 0px 15px 0px;
+}
