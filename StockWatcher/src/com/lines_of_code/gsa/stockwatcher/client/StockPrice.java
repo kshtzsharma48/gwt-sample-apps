@@ -6,6 +6,17 @@ public class StockPrice {
 	private double price;
 	private double change;
 
+	public StockPrice() {
+
+	}
+
+	public StockPrice(String symbol, double price, double change) {
+		super();
+		this.symbol = symbol;
+		this.price = price;
+		this.change = change;
+	}
+
 	public String getSymbol() {
 		return symbol;
 	}
