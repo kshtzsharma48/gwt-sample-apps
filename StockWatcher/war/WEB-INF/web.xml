@@ -4,9 +4,21 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>StockWatcher.html</welcome-file>
   </welcome-file-list>
+  
+  <!--  Servlets -->
+  <servlet>
+  	<servlet-name>stockPriceServiceImpl</servlet-name>
+  	<servlet-class>com.lines_of_code.gsa.stockwatcher.server.StockPriceServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>stockPriceServiceImpl</servlet-name>
+  	<url-pattern>/stockwatcher/stockPrices</url-pattern>
+  </servlet-mapping>
 
 </web-app>
