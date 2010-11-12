@@ -3,6 +3,7 @@ package com.lines_of_code.gsa.stockwatcher.server;
 import java.util.Random;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.lines_of_code.gsa.stockwatcher.client.DelistedException;
 import com.lines_of_code.gsa.stockwatcher.client.StockPrice;
 import com.lines_of_code.gsa.stockwatcher.client.StockPriceService;
 
@@ -13,11 +14,14 @@ public class StockPriceServiceImpl extends RemoteServiceServlet implements
 	private static final double MAX_PRICE_CHANGE = 0.02; // +/- 2%
 
 	@Override
-	public StockPrice[] getPrices(String[] symbols) {
+	public StockPrice[] getPrices(String[] symbols) throws DelistedException {
 		Random rnd = new Random();
 
 		StockPrice[] prices = new StockPrice[symbols.length];
 		for (int i = 0; i < prices.length; i++) {
+			if (symbols[i].equals("ERR")) {
+				throw new DelistedException("ERR");
+			}
 			double price = rnd.nextDouble() * MAX_PRICE;
 			double change = price * MAX_PRICE_CHANGE
 					* (rnd.nextDouble() * 2f - 1f);

@@ -36,6 +36,7 @@ public class StockWatcher implements EntryPoint {
 	private ArrayList<String> stocks = new ArrayList<String>();
 	private StockPriceServiceAsync stockPriceSvc = GWT
 			.create(StockPriceService.class);
+	private Label errorMsgLabel = new Label();
 
 	/**
 	 * Entry point method.
@@ -64,6 +65,10 @@ public class StockWatcher implements EntryPoint {
 		addPanel.addStyleName("addPanel");
 
 		// Assemble Main panel.
+		errorMsgLabel.setStyleName("errorMessage");
+		errorMsgLabel.setVisible(false);
+
+		mainPanel.add(errorMsgLabel);
 		mainPanel.add(stocksFlexTable);
 		mainPanel.add(addPanel);
 		mainPanel.add(lastUpdatedLabel);
@@ -190,7 +195,17 @@ public class StockWatcher implements EntryPoint {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO: Do something with errors
+				// If the stock code is in the list of delisted codes, display
+				// an error message.
+				String details = caught.getMessage();
+				if (caught instanceof DelistedException) {
+					details = "Company '"
+							+ ((DelistedException) caught).getSymbol()
+							+ "' was delisted";
+				}
+
+				errorMsgLabel.setText("Error: " + details);
+				errorMsgLabel.setVisible(true);
 			}
 
 			@Override
@@ -257,5 +272,8 @@ public class StockWatcher implements EntryPoint {
 		lastUpdatedLabel.setText("Last update : "
 				+ DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM)
 						.format(new Date()));
+
+		// Clear any errors.
+		errorMsgLabel.setVisible(false);
 	}
 }
