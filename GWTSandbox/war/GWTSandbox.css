@@ -1,0 +1,36 @@
+/** Add css rules here for your application. */
+.gwt-TabLayoutPanel
+{
+    height: 300px;
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs {
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
+  border-color: #EEEEEE;
+  border-style: solid;
+  border-width: 3px 2px 2px;
+  overflow: hidden;
+  padding: 6px;
+  background: #EEEEEE; 
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
+  margin-left: 6px;
+  padding: 3px 8px 3px 8px;
+  cursor: pointer;
+  cursor: hand;
+  color: black;
+  font-size: 1.2em;
+  color: #3B4554;
+  text-align: center;
+  background: #EEEEEE;
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
+  cursor: default;
+  background: #8DA6CE;
+  font-size: 1.2em;
+  color: #FFFFFF;
+}
