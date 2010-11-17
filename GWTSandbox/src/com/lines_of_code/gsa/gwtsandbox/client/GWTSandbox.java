@@ -35,24 +35,46 @@ public class GWTSandbox implements EntryPoint {
 		form.setAction(GWT.getModuleBaseURL()+"catalogupload");
 		form.setMethod(FormPanel.METHOD_POST);
 		form.setEncoding(FormPanel.ENCODING_MULTIPART);
+		final FileUpload upload = new FileUpload();
 
 		// Add a form handler.
-
 		form.setWidget(vPanel);
 
+		// add a button to upload the file.
+		final Button validateButton = new Button("Katalog validieren");
+		validateButton.setEnabled(false);
+		validateButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				form.submit();
+				GWT.log("Uploading file: '" + upload.getFilename() + "' to: "
+						+ form.getAction());
+			}
+		});
+
 		// Add a FileUpload widget.
-		final FileUpload upload = new FileUpload();
+
 		upload.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
 				boolean fileExtValid = false;
+				String fileName = upload.getFilename();
 				for (String ext : allowedExt) {
-					if (upload.getFilename().endsWith(ext)) {
+					if (fileName.endsWith(ext)) {
 						fileExtValid = true;
 					}
 				}
 				if (fileExtValid) {
+					if (fileName.endsWith("xml")) {
+						validateButton.setText("BMEcat validieren");
+					} else if (fileName.endsWith("xls") || fileName.endsWith("xlsx")) {
+						validateButton.setText("Excel Katalog validieren");
+					} else if (fileName.endsWith("txt")
+							|| fileName.endsWith("csv")) {
+						validateButton.setText("CSV Katalog validieren");
+					}
+					validateButton.setEnabled(true);
 					Window.alert("Datei okay!");
 				} else {
 					Window.alert("Datei nicht okay!");
@@ -61,17 +83,7 @@ public class GWTSandbox implements EntryPoint {
 
 		});
 		
-		// add a button to upload the file.
-		Button validateButton = new Button("Katalog validieren");
-		validateButton.addClickHandler(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				form.submit();
-				GWT.log("Uploading file: '" + upload.getFilename() + "' to: "
-						+ form.getAction());
-			}
-		});
 
 
 		vPanel.add(upload);
