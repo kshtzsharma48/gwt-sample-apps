@@ -29,6 +29,7 @@ public class GWTSandbox implements EntryPoint {
 	public void onModuleLoad() {
 		TabLayoutPanel tabLayout = new TabLayoutPanel(1.5, Unit.EM);
 		VerticalPanel vPanel = new VerticalPanel();
+		vPanel.setWidth("100%");
 
 		// Add a FormPanel widget.
 		final FormPanel form = new FormPanel();
@@ -36,6 +37,8 @@ public class GWTSandbox implements EntryPoint {
 		form.setMethod(FormPanel.METHOD_POST);
 		form.setEncoding(FormPanel.ENCODING_MULTIPART);
 		final FileUpload upload = new FileUpload();
+		upload.setWidth("10px");
+		upload.setTitle("Katalogdatei auswaehlen ...");
 
 		// Add a form handler.
 		form.setWidget(vPanel);
@@ -78,6 +81,8 @@ public class GWTSandbox implements EntryPoint {
 					Window.alert("Datei okay!");
 				} else {
 					Window.alert("Datei nicht okay!");
+					validateButton.setText("Katalog validieren");
+					validateButton.setEnabled(false);
 				}
 			}
 
