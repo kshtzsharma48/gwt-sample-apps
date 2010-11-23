@@ -5,20 +5,19 @@
 
 <web-app>
   
-  <!-- Servlets -->
-<!--  <servlet>-->
-<!--    <servlet-name>greetServlet</servlet-name>-->
-<!--    <servlet-class>com.lines_of_code.diplomarbeit.server.GreetingServiceImpl</servlet-class>-->
-<!--  </servlet>-->
-<!--  -->
-<!--  <servlet-mapping>-->
-<!--    <servlet-name>greetServlet</servlet-name>-->
-<!--    <url-pattern>/gwtsandbox/greet</url-pattern>-->
-<!--  </servlet-mapping>-->
+<!--   Servlets -->
+  <servlet>
+    <servlet-name>uploadServlet</servlet-name>
+    <servlet-class>com.lines_of_code.gsa.gwtsandbox.server.UploadServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>uploadServlet</servlet-name>
+    <url-pattern>/gwtsandbox/upload</url-pattern>
+  </servlet-mapping>
   
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>GWTSandbox.html</welcome-file>
   </welcome-file-list>
-
 </web-app>

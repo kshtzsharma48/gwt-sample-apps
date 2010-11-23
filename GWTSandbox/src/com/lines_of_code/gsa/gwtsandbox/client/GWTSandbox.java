@@ -20,7 +20,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
+import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -88,7 +90,7 @@ public class GWTSandbox implements EntryPoint {
 	public void onModuleLoad() {
 		TabLayoutPanel tabLayout = new TabLayoutPanel(1.5, Unit.EM);
 		tabLayout.setHeight("600px");
-		VerticalPanel vPanel = new VerticalPanel();
+		final VerticalPanel vPanel = new VerticalPanel();
 		vPanel.setWidth("100%");
 
 		VerticalPanel vPanel2 = new VerticalPanel();
@@ -99,14 +101,23 @@ public class GWTSandbox implements EntryPoint {
 
 		// Add a FormPanel widget.
 		final FormPanel form = new FormPanel();
-		form.setAction(GWT.getModuleBaseURL() + "catalogupload");
+		form.setAction(GWT.getModuleBaseURL() + "upload");
 		form.setMethod(FormPanel.METHOD_POST);
 		form.setEncoding(FormPanel.ENCODING_MULTIPART);
+		
+		// 
 		final FileUpload upload = new FileUpload();
 		upload.setWidth("10px");
 		upload.setTitle("Katalogdatei auswaehlen ...");
+		upload.setName("uploadFormElement");
 
 		// Add a form handler.
+		form.addSubmitHandler(new FormPanel.SubmitHandler() {
+			@Override
+			public void onSubmit(SubmitEvent event) {
+				// This event is fired just before the form is submitted. We can	
+			}
+		});
 		form.setWidget(vPanel);
 
 		// add a button to upload the file.
@@ -118,12 +129,12 @@ public class GWTSandbox implements EntryPoint {
 				form.submit();
 				GWT.log("Uploading file: '" + upload.getFilename() + "' to: "
 						+ form.getAction());
+				vPanel.add(new Label("POST '" + upload.getFilename() + "' to:" + form.getAction()));
 			}
 		});
 
 		// Add file recognition.
 		upload.addChangeHandler(new ChangeHandler() {
-
 			@Override
 			public void onChange(ChangeEvent event) {
 				boolean fileExtValid = false;
@@ -144,9 +155,7 @@ public class GWTSandbox implements EntryPoint {
 						validateButton.setText("CSV Katalog validieren");
 					}
 					validateButton.setEnabled(true);
-					Window.alert("Datei okay!");
 				} else {
-					Window.alert("Datei nicht okay!");
 					validateButton.setText("Katalog validieren");
 					validateButton.setEnabled(false);
 				}
@@ -179,7 +188,7 @@ public class GWTSandbox implements EntryPoint {
 				return object.category;
 			}
 		};
-		table.addColumn(shortDescColumn, "Kategorie");
+		table.addColumn(categoryColumn, "Kategorie");
 
 		// Add a column to show the price.
 		TextColumn<Catalog> priceColumn = new TextColumn<Catalog>() {
@@ -240,5 +249,6 @@ public class GWTSandbox implements EntryPoint {
 		tabLayout.add(vPanel, "Katalogimport");
 		tabLayout.add(vPanel2, "Katalog bearbeiten");
 		RootPanel.get("tabLayout").add(tabLayout);
+		RootPanel.get("tabLayout").add(form);
 	}
 }
