@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
@@ -59,38 +60,26 @@ public class GWTSandbox implements EntryPoint {
 	 * The list of data to display.
 	 */
 	private static final List<Catalog> CATALOG = Arrays
-			.asList(new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-					"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815"),
-					new Catalog("Foo Bar", "foobar", Random.nextDouble() * 100,
-							"0815")
+.asList(new Catalog("Foo Bar 1", "foobar", Random.nextDouble() * 100, "0815"),
+		new Catalog("Foo Bar 2", "foobar", Random.nextDouble() * 100, "0816"), 
+		new Catalog("Foo Bar 3", "foobar", Random.nextDouble() * 100, "0817"),
+		new Catalog("Foo Bar 4", "foobar", Random.nextDouble() * 100, "0818"),
+		new Catalog("Foo Bar 5", "foobar", Random.nextDouble() * 100, "0819"),
+		new Catalog("Foo Bar 6", "foobar", Random.nextDouble() * 100, "0820"),
+		new Catalog("Foo Bar 7", "foobar", Random.nextDouble() * 100, "0821"),
+		new Catalog("Foo Bar 8", "foobar", Random.nextDouble() * 100, "0822"),
+		new Catalog("Foo Bar 9", "foobar", Random.nextDouble() * 100, "0823"),
+		new Catalog("Foo Bar 10", "foobar", Random.nextDouble() * 100, "0824"),
+		new Catalog("Foo Bar 11", "foobar", Random.nextDouble() * 100, "0825"),
+		new Catalog("Foo Bar 12", "foobar", Random.nextDouble() * 100, "0826"),
+		new Catalog("Foo Bar 13", "foobar", Random.nextDouble() * 100, "0828"),
+		new Catalog("Foo Bar 14", "foobar", Random.nextDouble() * 100, "0829"),
+		new Catalog("Foo Bar 15", "foobar", Random.nextDouble() * 100, "0830"),
+		new Catalog("Foo Bar 16", "foobar", Random.nextDouble() * 100, "0831"),
+		new Catalog("Foo Bar 17", "foobar", Random.nextDouble() * 100, "0832"),
+		new Catalog("Foo Bar 18", "foobar", Random.nextDouble() * 100, "0833"),
+		new Catalog("Foo Bar 19", "foobar", Random.nextDouble() * 100, "0834"),
+		new Catalog("Foo Bar 20", "foobar", Random.nextDouble() * 100, "0835")
 	);
 
 	/**
@@ -231,6 +220,10 @@ public class GWTSandbox implements EntryPoint {
 
 		// Push the data into the widget.
 		table.setRowData(0, CATALOG);
+
+		ListDataProvider<Catalog> dataProvider = new ListDataProvider<Catalog>(
+				CATALOG);
+		dataProvider.addDataDisplay(table);
 
 
 		// Create a Pager to control the table.
