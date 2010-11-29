@@ -105,7 +105,7 @@ public class GWTSandbox implements EntryPoint {
 		form.setMethod(FormPanel.METHOD_POST);
 		form.setEncoding(FormPanel.ENCODING_MULTIPART);
 		
-		// 
+		// Add a Upload widget. 
 		final FileUpload upload = new FileUpload();
 		upload.setWidth("10px");
 		upload.setTitle("Katalogdatei auswaehlen ...");

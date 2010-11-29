@@ -1,7 +1,9 @@
 package com.lines_of_code.gsa.gwtsandbox.server;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -9,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 public class UploadServlet extends HttpServlet {
@@ -23,26 +25,46 @@ public class UploadServlet extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		PrintWriter pw = response.getWriter();
 		log.info("GET recieved");
 	}
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		ServletFileUpload upload = new ServletFileUpload();
+		
 		log.info("POST recieved");
-		try {
-			FileItemIterator iter = upload.getItemIterator(request);
-			while (iter.hasNext()) {
-				FileItemStream item = iter.next();
-				log.info("FieldName: "+item.getFieldName());
-				log.info("ContentType: " + item.getContentType());
-				log.info("ItemName: "+item.getName());			
-			}
-		} catch (FileUploadException e) {
-			log.severe(e.getMessage());
-		}
+		
+		// Check that we have a file upload request
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+		
+		log.info("Request is MultiPart? " + isMultipart);
+		
+		// Create a factory for disk-based file items
+		DiskFileItemFactory factory = new DiskFileItemFactory();
 
+		// Set factory constraints
+		factory.setSizeThreshold(1024 * 1024 * 200); // 200 megabytes
+		factory.setRepository(new File("/tmp"));
+
+		// Create a new file upload handler
+		ServletFileUpload upload = new ServletFileUpload(factory);
+
+		// Set overall request size constraint
+		upload.setSizeMax(1024 * 1024 * 50);
+		
+		Enumeration<String> paramNames = request.getAttributeNames();
+		while (paramNames.hasMoreElements()) {
+			log.info(paramNames.nextElement());
+		}
+		
+
+		// Parse the request
+		try {
+			List<FileItem> items = upload.parseRequest(request);
+			log.info("FileItem amount: "+items.size());
+		} catch (FileUploadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
