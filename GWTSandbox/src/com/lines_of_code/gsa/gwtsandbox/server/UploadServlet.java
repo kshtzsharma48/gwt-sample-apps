@@ -2,6 +2,7 @@ package com.lines_of_code.gsa.gwtsandbox.server;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Logger;
@@ -25,6 +26,8 @@ public class UploadServlet extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		PrintWriter pw = response.getWriter();
+		pw.write("GET recieved");
 		log.info("GET recieved");
 	}
 
