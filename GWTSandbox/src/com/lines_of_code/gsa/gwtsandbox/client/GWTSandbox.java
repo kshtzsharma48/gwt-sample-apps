@@ -104,6 +104,7 @@ public class GWTSandbox implements EntryPoint {
 		form.setAction(GWT.getModuleBaseURL() + "upload");
 		form.setMethod(FormPanel.METHOD_POST);
 		form.setEncoding(FormPanel.ENCODING_MULTIPART);
+		form.setWidget(vPanel);
 		
 		// Add a Upload widget. 
 		final FileUpload upload = new FileUpload();
@@ -111,14 +112,21 @@ public class GWTSandbox implements EntryPoint {
 		upload.setTitle("Katalogdatei auswaehlen ...");
 		upload.setName("uploadFormElement");
 
+		// Add a label to display post information
+		final Label postLabel = new Label();
+		vPanel.add(postLabel);
+		
 		// Add a form handler.
 		form.addSubmitHandler(new FormPanel.SubmitHandler() {
 			@Override
 			public void onSubmit(SubmitEvent event) {
-				// This event is fired just before the form is submitted. We can	
+				// This event is fired just before the form is submitted. We can
+				GWT.log("Uploading file: '" + upload.getFilename() + "' to: "
+						+ form.getAction());
+				postLabel.setText("POST '" + upload.getFilename() + "' to: " + form.getAction());
 			}
 		});
-		form.setWidget(vPanel);
+		
 
 		// add a button to upload the file.
 		final Button validateButton = new Button("Katalog validieren");
@@ -127,9 +135,6 @@ public class GWTSandbox implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				form.submit();
-				GWT.log("Uploading file: '" + upload.getFilename() + "' to: "
-						+ form.getAction());
-				vPanel.add(new Label("POST '" + upload.getFilename() + "' to:" + form.getAction()));
 			}
 		});
 
@@ -162,6 +167,7 @@ public class GWTSandbox implements EntryPoint {
 			}
 
 		});
+		
 
 		vPanel.add(upload);
 		vPanel.add(validateButton);
@@ -246,9 +252,8 @@ public class GWTSandbox implements EntryPoint {
 		vPanel2.add(table);
 		vPanel2.add(pager);
 
-		tabLayout.add(vPanel, "Katalogimport");
+		tabLayout.add(form, "Katalogimport");
 		tabLayout.add(vPanel2, "Katalog bearbeiten");
 		RootPanel.get("tabLayout").add(tabLayout);
-		RootPanel.get("tabLayout").add(form);
 	}
 }
