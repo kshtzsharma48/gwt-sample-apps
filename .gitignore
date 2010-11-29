@@ -9,6 +9,7 @@ Sandbox/
 /*/war/WEB-INF/classes/*
 /*/reports/
 /*/www-test/
+/*/test-classes/
 
 # project specific
 /*/war/stockwatcher/*
