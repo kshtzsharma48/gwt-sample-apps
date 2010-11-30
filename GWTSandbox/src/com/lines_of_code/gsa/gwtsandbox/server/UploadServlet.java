@@ -55,19 +55,21 @@ public class UploadServlet extends HttpServlet {
 		// Set overall request size constraint
 		upload.setSizeMax(1024 * 1024 * 50);
 		
-		Enumeration<String> paramNames = request.getAttributeNames();
-		while (paramNames.hasMoreElements()) {
-			log.info(paramNames.nextElement());
-		}
+		String result = "";
 		
-
 		// Parse the request
 		try {
 			List<FileItem> items = upload.parseRequest(request);
 			log.info("FileItem amount: "+items.size());
+			for (FileItem item : items) {
+				log.info(item.getName());
+				// TODO: Process file
+			}
 		} catch (FileUploadException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		response.getWriter().append(result);
 	}
 }
