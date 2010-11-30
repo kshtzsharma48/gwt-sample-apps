@@ -1,6 +1,8 @@
 package com.lines_of_code.gsa.gwtsandbox.server;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import junit.framework.TestCase;
@@ -14,10 +16,16 @@ import org.mortbay.jetty.servlet.ServletHolder;
 
 public class UploadServletTest extends TestCase{
 	private static Server jettyServer;
+	private static URL servletURL;
+	private static WebClient client;
+	
+	
 	
 	@Before
 	public void setUp() throws Exception {
+		servletURL = new URL("http://localhost:9876/gwtsandbox/upload");
 		jettyServer = new Server(9876);
+		client = new WebClient();
 		ServletHandler context = new ServletHandler();
 		jettyServer.setHandler(context);
 		
@@ -29,9 +37,15 @@ public class UploadServletTest extends TestCase{
 
 	@Test
 	public void testUploadServletGet() throws IOException {
-		WebClient client = new WebClient();
-		String get = client.getContent(new URL("http://localhost:9876/gwtsandbox/upload"));
+		String get = client.getContent(servletURL);
 		assertEquals("GET", "GET recieved", get);
+	}
+	
+	@Test
+	public void testUploadServletPost() throws IOException, URISyntaxException {
+		File testKatalog = new File(UploadServletTest.class.getResource("data/testkatalog.xls").toURI());
+		client.postFile(servletURL, testKatalog);
+//		assertEquals("GET", "GET recieved", get);
 	}
 	
 	@After

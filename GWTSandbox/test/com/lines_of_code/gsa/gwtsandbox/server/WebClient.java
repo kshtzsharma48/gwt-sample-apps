@@ -6,6 +6,14 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.FileEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 public class WebClient {
 
 	public String getContent(URL url) {
@@ -26,23 +34,26 @@ public class WebClient {
 		return content.toString();
 	}
 	
-	public String postFile(URL url, File f) {
-		StringBuffer content = new StringBuffer();
+	public void postFile(URL url, File f) throws ClientProtocolException, IOException {
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost(url.toString());
+		FileEntity reqEntitiy = new FileEntity(f, "application/excel");
 		
-		try {
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setDoInput(true);
-			connection.setDoOutput(true);
-			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			connection.setRequestMethod("POST");
-			// TODO: Read file from filesystem, post to URL and display status and/or response text
-//			DataOutputStream printout = new DataOutputStream()
-			
-			
-		} catch (IOException e) {
-			return null;
+		// TODO: fix boundary
+		reqEntitiy.setContentType("multipart/form-data; boundary=boundary42");
+		reqEntitiy.setChunked(true);
+		
+		httpPost.setEntity(reqEntitiy);
+		System.out.println("executing request " + httpPost.getRequestLine());
+		HttpResponse response = httpClient.execute(httpPost);
+		HttpEntity resEntity = response.getEntity();
+		
+		System.out.println(response.getStatusLine());
+		
+		if (resEntity != null) {
+			resEntity.consumeContent();
 		}
 		
-		return content.toString();
+		httpClient.getConnectionManager().shutdown();
 	}
 }
