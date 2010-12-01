@@ -20,6 +20,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
@@ -127,6 +128,15 @@ public class GWTSandbox implements EntryPoint {
 			}
 		});
 		
+		form.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
+			
+			@Override
+			public void onSubmitComplete(SubmitCompleteEvent event) {
+				// TODO Process Catalog Validator response
+				
+			}
+		});
+		
 
 		// add a button to upload the file.
 		final Button validateButton = new Button("Katalog validieren");
@@ -135,7 +145,7 @@ public class GWTSandbox implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				form.submit();
-			}
+			}	
 		});
 
 		// Add file recognition.
@@ -175,6 +185,10 @@ public class GWTSandbox implements EntryPoint {
 		vPanel.add(upload);
 		vPanel.add(validateButton);
 
+		/* |----------------------------------|
+		 * |          Catalog Table           |
+		 * |----------------------------------|
+		 */
 
 		// Create a CellTable.
 		CellTable<Catalog> table = new CellTable<Catalog>();
