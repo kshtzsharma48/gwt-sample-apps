@@ -37,6 +37,7 @@ public class GWTSandbox implements EntryPoint {
 
 	final String[] allowedExt = new String[] { "xls", "xlsx", "xml", "csv",
 			"txt" };
+	final String productiveURL = GWT.getHostPageBaseURL() + "webportal/servlet/CatalogImport";
 
 	/**
 	 * A simple data type that represents a contact.
@@ -101,7 +102,7 @@ public class GWTSandbox implements EntryPoint {
 
 		// Add a FormPanel widget.
 		final FormPanel form = new FormPanel();
-		form.setAction(GWT.getModuleBaseURL() + "upload");
+		form.setAction("http://192.168.19.111:8080/webportal/servlet/CatalogValidator");
 		form.setMethod(FormPanel.METHOD_POST);
 		form.setEncoding(FormPanel.ENCODING_MULTIPART);
 		form.setWidget(vPanel);
@@ -110,7 +111,6 @@ public class GWTSandbox implements EntryPoint {
 		final FileUpload upload = new FileUpload();
 		upload.setWidth("10px");
 		upload.setTitle("Katalogdatei auswaehlen ...");
-		upload.setName("uploadFormElement");
 
 		// Add a label to display post information
 		final Label postLabel = new Label();
@@ -152,12 +152,15 @@ public class GWTSandbox implements EntryPoint {
 				if (fileExtValid) {
 					if (fileName.endsWith("xml")) {
 						validateButton.setText("BMEcat validieren");
+						upload.setName("standalonebmecat");
 					} else if (fileName.endsWith("xls")
 							|| fileName.endsWith("xlsx")) {
 						validateButton.setText("Excel Katalog validieren");
+						upload.setName("excel");
 					} else if (fileName.endsWith("txt")
 							|| fileName.endsWith("csv")) {
 						validateButton.setText("CSV Katalog validieren");
+						upload.setName("textfile");
 					}
 					validateButton.setEnabled(true);
 				} else {
